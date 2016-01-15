@@ -9,7 +9,7 @@ import (
 	"strings"
 )
 
-// A Result inherits the http.ResponseWriter interface and adds some convinience
+// A Response inherits the http.ResponseWriter interface and adds some convinience
 // methods to return data.
 type Response struct {
 	http.ResponseWriter
@@ -17,6 +17,9 @@ type Response struct {
 	// Renderer is responsebile for rendering a template.
 	Renderer
 }
+
+// Data stores the data passed to the templates.
+type Data map[string]interface{}
 
 // SetRenderer is the setter for a Renderer.
 func (r *Response) SetRenderer(renderer Renderer) {
@@ -30,25 +33,26 @@ func (r *Response) Text(text ...string) {
 	r.Write([]byte(strings.Join(text, "")))
 }
 
-// HTML calls the Render method of the Renderer to parse a template at the
-// given path and set the approriate header for this content type.
-func (r *Response) HTML(templateName string, data map[string]interface{}) {
+// HTML calls the Render method of the Renderer to parse templates
+// and sets the approriate header for this content type.
+func (r *Response) HTML(data Data, templateNames ...string) {
 	r.Header().Set("Content-Type", "text/html")
-	r.Render(templateName, r, data)
+	r.Render(r, data, templateNames)
 }
 
-// Static returns a file identified by the given name and set the approriate header for this content type.
+// Static returns a file identified by the given name and sets the approriate
+// header for this content type.
 func (r *Response) Static(fileName string, req *http.Request) {
 	http.ServeFile(r, req, fileName)
 }
 
-// JSON parses the given data to JSON and set the approriate header for
+// JSON parses the given data to JSON and sets the approriate header for
 // this content type.
 func (r *Response) JSON(data interface{}) {
 	r.Header().Set("Content-Type", "application/json")
 }
 
-// XML parses the given data to XML and set the approriate header for
+// XML parses the given data to XML and sets the approriate header for
 // this content type.
 func (r *Response) XML(data interface{}) {
 	r.Header().Set("Content-Type", "text/xml")

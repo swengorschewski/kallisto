@@ -15,7 +15,7 @@ var b = "test"
 
 type renderer struct{}
 
-func (r renderer) Render(s string, w io.Writer, v interface{}) { fmt.Fprintf(w, "%s", b) }
+func (r renderer) Render(w io.Writer, v interface{}, t []string) { fmt.Fprintf(w, "%s", b) }
 
 func TestText(t *testing.T) {
 	w := httptest.NewRecorder()
@@ -36,7 +36,7 @@ func TestHTML(t *testing.T) {
 	r := &Response{ResponseWriter: w}
 
 	r.SetRenderer(renderer{})
-	r.HTML("path/to/file", nil)
+	r.HTML(nil, "path/to/file")
 
 	if w.Body.String() != b {
 		t.Errorf("Body should be %s but got %s", b, w.Body.String())

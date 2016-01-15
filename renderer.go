@@ -8,6 +8,6 @@ import "io"
 
 // Renderer is an interface to make it easier to replace the templating engine.
 type Renderer interface {
-	// Render turns the template and the given data to valid HTML.
-	Render(string, io.Writer, interface{})
+	// Render turns the templates and the given data to valid HTML.
+	Render(io.Writer, interface{}, []string)
 }

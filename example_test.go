@@ -11,8 +11,8 @@ func ExampleSimpleServer() {
 	k := kallisto.New()
 
 	// register a route for a HTTP GET request
-	// the first parameter represents the request url
-	// the second parameter is a name an internal name for this route
+	// the first parameter represents the request url,
+	// the second parameter is an internal name for the route,
 	// and the last parameter is a controller function that will be called
 	// if a request for this route comes in.
 	k.GET("/", "index", func(ctx *kallisto.Context, res *kallisto.Response) {

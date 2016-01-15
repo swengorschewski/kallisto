@@ -4,9 +4,9 @@
 
 package kallisto_test
 
-import "gitlab.com/swen/kallisto"
+import "github.com/swengorschewski/kallisto"
 
-func ExampleSimpleServer() {
+func Example() {
 	// create a kallisto mux
 	k := kallisto.New()
 

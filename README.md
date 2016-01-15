@@ -1,5 +1,5 @@
 # kallisto
- Kallisto a web framework based on Julien Schmidts [httprouter](https://github.com/julienschmidt/httprouter) package and inspired by [martini](https://github.com/go-martini/martini), [revel](https://github.com/revel/revel), [gin](https://github.com/gin-gonic/gin)
+ Kallisto a web framework based on Julien Schmidts [httprouter](https://github.com/julienschmidt/httprouter) package and inspired by [martini](https://github.com/go-martini/martini), [revel](https://github.com/revel/revel) and [gin](https://github.com/gin-gonic/gin).
  
  It was written for a university project and is not(and propablly never will be) ready for use in production.
  

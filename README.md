@@ -3,6 +3,8 @@
  
  It was written for a university project and is not(and propablly never will be) ready for use in production.
  
+ [Documentation] (https://godoc.org/github.com/swengorschewski/kallisto)
+ 
  Example:
  ```go
 package main

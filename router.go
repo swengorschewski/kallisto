@@ -121,7 +121,7 @@ func (r *Router) NotFound(c ControllerFunc) {
 	})
 }
 
-// PanicHandler is a wrapper for the httprouter PanicHandler method to work with
+// PanicHandler is a wrapper for the httprouter PanicHandler method to work
 // with a ControllerFunc.
 func (r *Router) PanicHandler(c ControllerFunc) {
 	route := NewRoute()

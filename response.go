@@ -18,9 +18,6 @@ type Response struct {
 	Renderer
 }
 
-// Data stores the data passed to the templates.
-type Data map[string]interface{}
-
 // SetRenderer is the setter for a Renderer.
 func (r *Response) SetRenderer(renderer Renderer) {
 	r.Renderer = renderer

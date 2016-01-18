@@ -47,8 +47,11 @@ type Context struct {
 	Session Session
 
 	// data is a key value store to keep data for this request.
-	data map[string]interface{}
+	Data Data
 }
+
+// Data stores any data.
+type Data map[string]interface{}
 
 // newContext creates a Context struct with the given parameters and returns a pointer.
 func newContext(k *Kallisto, r *Route) *Context {
@@ -57,7 +60,7 @@ func newContext(k *Kallisto, r *Route) *Context {
 		doneBefore:      false,
 		kallisto:        k,
 		route:           r,
-		data:            make(map[string]interface{}),
+		Data:            make(Data),
 	}
 }
 
@@ -90,12 +93,12 @@ func (c *Context) Next() {
 // Set stores the given key value pair.
 // Anything stored via Set is request scoped.
 func (c *Context) Set(key string, value interface{}) {
-	c.data[key] = value
+	c.Data[key] = value
 }
 
 // Get returns a request scoped value identified by the given key.
 func (c *Context) Get(key string) interface{} {
-	return c.data[key]
+	return c.Data[key]
 }
 
 // App returns a pointer to the application.

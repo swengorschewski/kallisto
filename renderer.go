@@ -4,7 +4,9 @@
 
 package kallisto
 
-import "io"
+import (
+	"io"
+)
 
 // Renderer is an interface to make it easier to replace the templating engine.
 type Renderer interface {

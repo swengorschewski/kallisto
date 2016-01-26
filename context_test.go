@@ -66,8 +66,9 @@ type session struct{}
 
 func (s session) Get(k string) interface{}         { return nil }
 func (s session) Set(k string, v interface{})      {}
-func (s session) Flash(k string) interface{}       { return nil }
-func (s session) SetFlash(k string, v interface{}) {}
+func (s session) Flash() interface{}       { return nil }
+func (s session) SetFlash(v interface{}) {}
+func (s session) HasFlash() bool { return false }
 
 func TestSession(t *testing.T) {
 	s := session{}
@@ -80,7 +81,7 @@ func TestSession(t *testing.T) {
 }
 
 func TestGetSet(t *testing.T) {
-	c := &Context{data: make(map[string]interface{})}
+	c := &Context{Data: make(map[string]interface{})}
 	c.Set("key", "value")
 
 	if c.Get("key") != "value" {

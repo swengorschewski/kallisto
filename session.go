@@ -12,10 +12,13 @@ type Session interface {
 	// Get returns a value indentified by the given key.
 	Get(k string) interface{}
 
-	// SetFlash stores the given key value pair.
-	// The stored key value pair is only available for the next request.
-	SetFlash(k string, v interface{})
+	// SetFlash stores the given value.
+	// The stored value is only available for the next request.
+	SetFlash(v interface{})
 
-	// Flash returns stored value identified by the given key.
-	Flash(k string) interface{}
+    // HasFlash checks if a flash value is stored.
+	HasFlash() bool
+
+	// Flash returns stored value.
+	Flash() interface{}
 }

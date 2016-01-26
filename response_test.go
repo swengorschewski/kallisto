@@ -12,14 +12,17 @@ import (
 )
 
 var b = "test"
+var ctx = newContext(nil, nil)
 
 type renderer struct{}
 
-func (r renderer) Render(w io.Writer, v interface{}, t []string) { fmt.Fprintf(w, "%s", b) }
+func (r renderer) Render(w io.Writer, v interface{}, t []string) {
+	fmt.Fprintf(w, "%s", b)
+}
 
 func TestText(t *testing.T) {
 	w := httptest.NewRecorder()
-	r := &Response{ResponseWriter: w}
+	r := newResponse(w, ctx)
 	r.Text("first", ":second:", "last")
 
 	if w.Body.String() != "first:second:last" {
@@ -33,7 +36,7 @@ func TestText(t *testing.T) {
 
 func TestHTML(t *testing.T) {
 	w := httptest.NewRecorder()
-	r := &Response{ResponseWriter: w}
+	r := newResponse(w, ctx)
 
 	r.SetRenderer(renderer{})
 	r.HTML(nil, "path/to/file")
@@ -49,7 +52,7 @@ func TestHTML(t *testing.T) {
 
 func TestHeaderAndStatusCode(t *testing.T) {
 	w := httptest.NewRecorder()
-	r := &Response{ResponseWriter: w}
+	r := newResponse(w, ctx)
 
 	r.WriteHeader(404)
 	r.Header().Set("Custom-Attr", "test")
@@ -65,7 +68,7 @@ func TestHeaderAndStatusCode(t *testing.T) {
 
 func TestJSON(t *testing.T) {
 	w := httptest.NewRecorder()
-	r := &Response{ResponseWriter: w}
+	r := newResponse(w, ctx)
 	r.JSON(nil)
 
 	if r.Header().Get("Content-Type") != "application/json" {
@@ -75,7 +78,7 @@ func TestJSON(t *testing.T) {
 
 func TestXML(t *testing.T) {
 	w := httptest.NewRecorder()
-	r := &Response{ResponseWriter: w}
+	r := newResponse(w, ctx)
 	r.XML(nil)
 
 	if r.Header().Get("Content-Type") != "text/xml" {
@@ -85,7 +88,7 @@ func TestXML(t *testing.T) {
 
 func TestSend(t *testing.T) {
 	w := httptest.NewRecorder()
-	r := &Response{ResponseWriter: w}
+	r := newResponse(w, ctx)
 
 	r.Text("test message")
 

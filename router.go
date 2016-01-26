@@ -116,7 +116,7 @@ func (r *Router) NotFound(c ControllerFunc) {
 		w.WriteHeader(404)
 		ctx := newContext(r.kallisto, route)
 		ctx.Request = req
-		ctx.Response = &Response{ResponseWriter: w}
+		ctx.Response = newResponse(w, ctx)
 		ctx.Next()
 	})
 }
@@ -130,7 +130,7 @@ func (r *Router) PanicHandler(c ControllerFunc) {
 	r.httprouter.PanicHandler = func(w http.ResponseWriter, req *http.Request, stack interface{}) {
 		ctx := newContext(r.kallisto, route)
 		ctx.Request = req
-		ctx.Response = &Response{ResponseWriter: w}
+		ctx.Response = newResponse(w, ctx)
 
 		ctx.Set("PanicStack", stack)
 		ctx.Next()
@@ -166,7 +166,7 @@ func (r *Router) Handle(method string, uri string, name string, controller Contr
 		ctx := newContext(r.kallisto, route)
 		ctx.Params = ps
 		ctx.Request = req
-		ctx.Response = &Response{ResponseWriter: w}
+		ctx.Response = newResponse(w, ctx)
 
 		ctx.Next()
 	})
